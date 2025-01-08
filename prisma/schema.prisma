@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  // table column
+  id       Int     @id @default(autoincrement())
+  username String  @db.VarChar(100)
+  email    String  @unique @db.VarChar(150)
+  password String  @db.VarChar(100)
+  token    String? @db.VarChar(100)
+  profile  String? @db.VarChar(100)
+  cv       String? @db.VarChar(100)
+
+  // relation to many event data
+  panitias  Panitia[]
+  historys  History[]
+  feedbacks feedback[]
+
+  // table name
+  @@map("users")
+}
+
+model Panitia {
+  id          Int     @id @default(autoincrement())
+  organisasi  String  @db.VarChar(100)
+  title       String  @db.VarChar(100)
+  description String  @db.Text
+  start_date  String  @db.VarChar(100)
+  poster      String? @db.VarChar(100)
+  user_id     Int // Foreign key
+
+  // relation to one user data using usere_id column as its foreign key with users table's id column as its value
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  historys History[]
+
+  @@map("panitias")
+}
+
+model Survey {
+  id         Int    @id @default(autoincrement())
+  title      String @db.VarChar(100)
+  start_date String @db.VarChar(100)
+  end_date   String @db.VarChar(100)
+
+  questions Question[]
+
+  @@map("surveys")
+}
+
+model Kp {
+  id          Int      @id @default(autoincrement())
+  date_start  DateTime
+  description String   @db.Text
+  type_id     Int // Foreign key
+
+  type Type @relation(fields: [type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  historys History[]
+
+  @@map("kps")
+}
+
+model History {
+  id         Int @id @default(autoincrement())
+  panitia_id Int // Foreign key
+  user_id    Int // Foreign key
+  kp_id      Int // Foreign key
+
+  user    User    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  panitia Panitia @relation(fields: [panitia_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  kp      Kp      @relation(fields: [kp_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("historys")
+}
+
+model Type {
+  id   Int    @id @default(autoincrement())
+  type String @db.VarChar(100)
+
+  kps Kp[]
+
+  @@map("types")
+}
+
+model Question {
+  id        Int    @id @default(autoincrement())
+  question  String @db.VarChar(100)
+  survey_id Int // Foreign key
+
+  feedbacks feedback[]
+
+  survey Survey @relation(fields: [survey_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("questions")
+}
+
+model feedback {
+  id          Int    @id @default(autoincrement())
+  question_id Int // Foreign key
+  feedback    String @db.VarChar(100)
+  user_id     Int // Foreign key
+
+  user     User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  question Question @relation(fields: [question_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("feedbacks")
+}
