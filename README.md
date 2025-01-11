@@ -16,7 +16,7 @@ Dengan UCNews, mahasiswa dapat dengan mudah menemukan informasi yang relevan dan
 Proyek ini dikembangkan oleh tiga mahasiswa Universitas Ciputra:  
 - 👨‍💻 **Rinaldy Tanriady Tan**  
 - 👨‍💻 **Kelvin Marcello Piter**  
-- 👨‍💻 **Shaquille Muhammad**  
+
 
 Kami bekerja sama untuk memberikan solusi terbaik bagi mahasiswa UC. 💪
 
