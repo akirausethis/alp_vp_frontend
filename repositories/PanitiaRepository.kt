@@ -6,7 +6,6 @@ import retrofit2.Call
 
 interface PanitiaRepository {
     fun getAllPanitia(token: String): Call<GetAllPanitiaResponse>
-
     fun createPanitia(
         token: String,
         organisasi: String,

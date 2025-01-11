@@ -1,6 +1,5 @@
 package com.example.alp_vp.models
 
-// Response untuk getAllFeedback
 data class GetAllFeedbackResponse(
     val data: List<FeedbackModel>
 )
@@ -10,21 +9,20 @@ data class GetFeedbackResponse(
 )
 
 data class FeedbackModel(
-    val id: Long,  // Changed 'Int' to 'Long' for consistency
+    val id: Long,
     val feedback: String,
-    val userId: Long,  // Changed 'Int' to 'Long' for consistency
-    val questionId: Long // Changed 'Int' to 'Long' for consistency
+    val userId: Long,
+    val questionId: Long
 )
 
-// Model untuk respon feedback
+
 data class FeedbackResponse(
-    val id: Long, // Changed 'Int' to 'Long' for consistency
+    val id: Long,
     val feedback: String,
-    val userId: Long,  // Changed 'Int' to 'Long' for consistency
-    val questionId: Long // Changed 'Int' to 'Long' for consistency
+    val userId: Long,
+    val questionId: Long
 )
 
-// Fungsi untuk mengonversi daftar feedback menjadi daftar FeedbackResponse
 fun toFeedbackResponseList(feedbackList: List<FeedbackModel>): List<FeedbackResponse> {
     return feedbackList.map { feedback ->
         FeedbackResponse(
@@ -36,7 +34,6 @@ fun toFeedbackResponseList(feedbackList: List<FeedbackModel>): List<FeedbackResp
     }
 }
 
-// Fungsi untuk mengonversi Feedback tunggal menjadi FeedbackResponse
 fun toFeedbackResponse(feedback: FeedbackModel): FeedbackResponse {
     return FeedbackResponse(
         id = feedback.id,
@@ -46,17 +43,17 @@ fun toFeedbackResponse(feedback: FeedbackModel): FeedbackResponse {
     )
 }
 
-// Model untuk membuat feedback baru
+
 data class FeedbackCreateRequest(
     val feedback: String,
-    val userId: Long,  // Changed 'Int' to 'Long' for consistency
-    val questionId: Long // Changed 'Int' to 'Long' for consistency
+    val userId: Long,
+    val questionId: Long
 )
 
-// Representasi data Feedback (mock model yang cocok dengan backend)
+
 data class Feedback(
-    val id: Long, // Changed 'Int' to 'Long' for consistency
+    val id: Long,
     val feedback: String,
-    val userId: Long, // Changed 'Int' to 'Long' for consistency
-    val questionId: Long // Changed 'Int' to 'Long' for consistency
+    val userId: Long,
+    val questionId: Long
 )

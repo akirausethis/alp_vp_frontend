@@ -1,6 +1,5 @@
 package com.example.alp_vp.models
 
-// Response untuk getAllPanitia
 data class GetAllPanitiaResponse(
     val data: List<PanitiaModel>
 )
@@ -14,45 +13,42 @@ data class PanitiaModel(
     val organisasi: String,
     val title: String,
     val description: String,
-    val startDate: String,  // Konsisten nama properti
+    val startDate: String,
     val poster: String?
 )
 
-// Response untuk Panitia
+
 data class PanitiaResponse(
     val id: Number,
     val organisasi: String,
     val title: String,
     val description: String,
     val startDate: String,
-    val poster: String
+    val poster: String?
 )
 
-// Request untuk membuat Panitia
 data class PanitiaCreateRequest(
     val organisasi: String,
     val title: String,
     val description: String,
     val startDate: String,
-    val poster: String?  // Optional
+    val poster: String?
 )
 
-// Request untuk memperbarui Panitia
+
 data class PanitiaUpdateRequest(
     val id: Number,
     val organisasi: String,
     val title: String,
     val description: String,
     val startDate: String,
-    val poster: String?  // Optional
+    val poster: String?
 )
 
-// Request untuk menghapus Panitia
 data class PanitiaDeleteRequest(
     val id: Number
 )
 
-// Mock model
 data class Panitia(
     val id: Int,
     val organisasi: String,
@@ -62,7 +58,6 @@ data class Panitia(
     val poster: String?
 )
 
-// Fungsi konversi
 fun toPanitiaResponseList(panitiaList: List<Panitia>): List<PanitiaResponse> {
     return panitiaList.map { panitia ->
         PanitiaResponse(
@@ -71,7 +66,7 @@ fun toPanitiaResponseList(panitiaList: List<Panitia>): List<PanitiaResponse> {
             title = panitia.title,
             description = panitia.description,
             startDate = panitia.startDate,
-            poster = panitia.poster ?: ""  // Default jika null
+            poster = panitia.poster ?: ""
         )
     }
 }
@@ -83,6 +78,6 @@ fun toPanitiaResponse(panitia: Panitia): PanitiaResponse {
         title = panitia.title,
         description = panitia.description,
         startDate = panitia.startDate,
-        poster = panitia.poster ?: ""  // Default jika null
+        poster = panitia.poster ?: ""
     )
 }
