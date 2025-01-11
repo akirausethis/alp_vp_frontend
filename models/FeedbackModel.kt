@@ -1,15 +1,31 @@
 package com.example.alp_vp.models
 
-// Model untuk response feedback
-data class FeedbackResponse(
-    val id: Int,
-    val feedback: String,
-    val userId: Int,
-    val questionId: Int
+// Response untuk getAllFeedback
+data class GetAllFeedbackResponse(
+    val data: List<FeedbackModel>
 )
 
-// Fungsi untuk mengonversi daftar feedback menjadi response
-fun toFeedbackResponseList(feedbackList: List<Feedback>): List<FeedbackResponse> {
+data class GetFeedbackResponse(
+    val data: FeedbackModel
+)
+
+data class FeedbackModel(
+    val id: Long,  // Changed 'Int' to 'Long' for consistency
+    val feedback: String,
+    val userId: Long,  // Changed 'Int' to 'Long' for consistency
+    val questionId: Long // Changed 'Int' to 'Long' for consistency
+)
+
+// Model untuk respon feedback
+data class FeedbackResponse(
+    val id: Long, // Changed 'Int' to 'Long' for consistency
+    val feedback: String,
+    val userId: Long,  // Changed 'Int' to 'Long' for consistency
+    val questionId: Long // Changed 'Int' to 'Long' for consistency
+)
+
+// Fungsi untuk mengonversi daftar feedback menjadi daftar FeedbackResponse
+fun toFeedbackResponseList(feedbackList: List<FeedbackModel>): List<FeedbackResponse> {
     return feedbackList.map { feedback ->
         FeedbackResponse(
             id = feedback.id,
@@ -20,8 +36,8 @@ fun toFeedbackResponseList(feedbackList: List<Feedback>): List<FeedbackResponse>
     }
 }
 
-// Fungsi untuk mengonversi satu feedback menjadi response
-fun toFeedbackResponse(feedback: Feedback): FeedbackResponse {
+// Fungsi untuk mengonversi Feedback tunggal menjadi FeedbackResponse
+fun toFeedbackResponse(feedback: FeedbackModel): FeedbackResponse {
     return FeedbackResponse(
         id = feedback.id,
         feedback = feedback.feedback,
@@ -30,17 +46,17 @@ fun toFeedbackResponse(feedback: Feedback): FeedbackResponse {
     )
 }
 
-// Model untuk request membuat feedback baru
+// Model untuk membuat feedback baru
 data class FeedbackCreateRequest(
     val feedback: String,
-    val userId: Int,  // ID dari user yang memberikan feedback
-    val questionId: Int // ID dari pertanyaan terkait feedback
+    val userId: Long,  // Changed 'Int' to 'Long' for consistency
+    val questionId: Long // Changed 'Int' to 'Long' for consistency
 )
 
-// Mock model untuk representasi data Feedback
+// Representasi data Feedback (mock model yang cocok dengan backend)
 data class Feedback(
-    val id: Int,
+    val id: Long, // Changed 'Int' to 'Long' for consistency
     val feedback: String,
-    val userId: Int,
-    val questionId: Int
+    val userId: Long, // Changed 'Int' to 'Long' for consistency
+    val questionId: Long // Changed 'Int' to 'Long' for consistency
 )

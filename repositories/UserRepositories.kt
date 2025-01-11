@@ -1,32 +1,56 @@
 package com.example.alp_vp.repositories
 
-import com.example.alp_vp.models.*
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import com.example.alp_vp.models.GeneralModel
 import com.example.alp_vp.services.UserAPIService
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import retrofit2.Call
-import retrofit2.Response
 
 interface UserRepository {
-    suspend fun registerUser(registerRequest: RegisterUserRequest): Response<UserResponse>
-    suspend fun loginUser(loginRequest: LoginUserRequest): Response<UserResponse>
-    suspend fun getUserProfile(token: String): Response<User>
+    val currentUserToken: Flow<String?>
+    val currentUsername: Flow<String?>
+
+    fun logout(token: String): Call<GeneralModel>
+
+    suspend fun saveUserToken(token: String)
+
+    suspend fun saveUsername(username: String)
 }
 
 class NetworkUserRepository(
+    private val userDataStore: DataStore<Preferences>,
     private val userAPIService: UserAPIService
 ) : UserRepository {
-
-    override suspend fun registerUser(registerRequest: RegisterUserRequest): Response<UserResponse> {
-        // Menggunakan Retrofit untuk mengirim permintaan registrasi ke server
-        return userAPIService.registerUser(registerRequest)
+    private companion object {
+        val USER_TOKEN = stringPreferencesKey("token")
+        val USERNAME = stringPreferencesKey("username")
     }
 
-    override suspend fun loginUser(loginRequest: LoginUserRequest): Response<UserResponse> {
-        // Menggunakan Retrofit untuk mengirim permintaan login ke server
-        return userAPIService.loginUser(loginRequest)
+    override val currentUserToken: Flow<String?> = userDataStore.data.map { preferences ->
+        preferences[USER_TOKEN]
     }
 
-    override suspend fun getUserProfile(token: String): Response<User> {
-        // Menggunakan Retrofit untuk mendapatkan profil pengguna berdasarkan token
-        return userAPIService.getUserProfile("Bearer $token")
+    override val currentUsername: Flow<String?> = userDataStore.data.map { preferences ->
+        preferences[USERNAME]
+    }
+
+    override suspend fun saveUserToken(token: String) {
+        userDataStore.edit { preferences ->
+            preferences[USER_TOKEN] = token
+        }
+    }
+
+    override suspend fun saveUsername(username: String) {
+        userDataStore.edit { preferences ->
+            preferences[USERNAME] = username
+        }
+    }
+
+    override fun logout(token: String): Call<GeneralModel> {
+        return userAPIService.logout(token)
     }
 }
