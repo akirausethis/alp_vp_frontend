@@ -1,6 +1,6 @@
 package com.example.alp_vp.view.OPREC.Details
 
-import com.example.alp_vp.view.KPCR.Details.CardDetails
+import com.example.alp_vp.view.BottomNavBar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

@@ -25,7 +25,7 @@ import com.example.alp_vp.R
 
 // Navbar Composable
 @Composable
-fun NavBar(modifier: Modifier) {
+fun BottomNavBar(modifier: Modifier) {
     Row(
         modifier = modifier
             .padding(16.dp)
@@ -124,8 +124,8 @@ fun NavBar(modifier: Modifier) {
     showSystemUi = true
 )
 @Composable
-fun NavBarPreview() {
-    NavBar(
+fun BottomNavBarPreview() {
+    BottomNavBar(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)

@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,11 +17,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.alp_vp.R
 import com.example.alp_vp.view.NEWS.ListNEWS.Card.NewsListCard
 
 @Composable
-fun NewsListScreen(modifier: Modifier = Modifier) {
+fun NewsListScreen(
+    navController: NavController, // Tambahkan parameter NavController
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -48,7 +54,7 @@ fun NewsListScreen(modifier: Modifier = Modifier) {
                 .align(Alignment.TopStart)
         ) {
             IconButton(
-                onClick = {},
+                onClick = { navController.popBackStack() }, // Navigasi kembali
                 modifier = Modifier.size(35.dp)
             ) {
                 Icon(
@@ -85,7 +91,7 @@ fun NewsListScreen(modifier: Modifier = Modifier) {
                 )
             )
             Text(
-                text = "All On-going Career Center Events",
+                text = "All News Across UC",
                 style = TextStyle(
                     color = Color.Gray,
                     fontSize = 14.sp
@@ -98,7 +104,7 @@ fun NewsListScreen(modifier: Modifier = Modifier) {
                 verticalArrangement = Arrangement.spacedBy(1.dp)
             ) {
                 items(5) {
-                    NewsListCard()
+                    NewsListCard(navController = navController) // Pastikan navController diteruskan
                 }
             }
 
@@ -185,7 +191,9 @@ fun BottomNavItem(iconRes: Int, label: String) {
 )
 @Composable
 fun NewsListPreview() {
+    val navController = rememberNavController() // Simulasi NavController
     NewsListScreen(
+        navController = navController, // Berikan ke parameter
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)

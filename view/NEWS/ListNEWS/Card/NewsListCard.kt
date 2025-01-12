@@ -12,10 +12,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.alp_vp.R
 
 @Composable
-fun NewsListCard(modifier: Modifier = Modifier) {
+fun NewsListCard(navController: NavController, modifier: Modifier = Modifier) {
     Card(
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFFF6F3E)),
@@ -41,11 +43,9 @@ fun NewsListCard(modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.width(16.dp))
 
                 Column(
-                    modifier = Modifier
-                        .fillMaxHeight(), // Isi tinggi kolom
+                    modifier = Modifier.fillMaxHeight(), // Isi tinggi kolom
                     verticalArrangement = Arrangement.SpaceBetween // Atur elemen di kolom
                 ) {
-                    // Teks di atas
                     Column {
                         Text(
                             text = "News",
@@ -53,14 +53,12 @@ fun NewsListCard(modifier: Modifier = Modifier) {
                                 fontWeight = FontWeight.ExtraBold,
                                 color = Color.White
                             ),
-                            modifier = Modifier.padding(top = 8.dp) // Add padding top
+                            modifier = Modifier.padding(top = 8.dp)
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = "Subtitle",
-                            style = MaterialTheme.typography.bodyMedium.copy(
-                                color = Color.White
-                            )
+                            style = MaterialTheme.typography.bodyMedium.copy(color = Color.White)
                         )
                     }
                 }
@@ -68,14 +66,14 @@ fun NewsListCard(modifier: Modifier = Modifier) {
 
             // Tombol di bawah
             Button(
-                onClick = { },
+                onClick = { navController.navigate("detailScreen") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4F4F4)),
                 shape = RoundedCornerShape(8.dp),
                 modifier = Modifier
-                    .align(Alignment.BottomCenter) // Posisikan tombol di bagian bawah tengah
-                    .padding(16.dp) // Jarak dari tepi bawah
+                    .align(Alignment.BottomCenter)
+                    .padding(16.dp)
                     .height(36.dp)
-                    .fillMaxWidth() // Tombol penuh di lebar card
+                    .fillMaxWidth()
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -94,17 +92,13 @@ fun NewsListCard(modifier: Modifier = Modifier) {
                     )
                 }
             }
-
         }
     }
 }
 
-
-@Preview(
-    showBackground = true,
-    showSystemUi = true
-)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun NewsListCardPreview() {
-    NewsListCard()
+    val mockNavController = rememberNavController() // Mock NavController untuk preview
+    NewsListCard(navController = mockNavController)
 }

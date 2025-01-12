@@ -30,7 +30,6 @@ fun NewsChoiceScreen(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .background(color = Color.White)
     ) {
-        // Orange Top Box
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -43,8 +42,6 @@ fun NewsChoiceScreen(modifier: Modifier = Modifier) {
                     )
                 )
         )
-
-        // Title Section
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -68,18 +65,16 @@ fun NewsChoiceScreen(modifier: Modifier = Modifier) {
             )
         }
 
-        // Add ProfileFormScreen and Submit Button
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 120.dp) // Agar tidak tertumpuk dengan top box
+                .padding(top = 120.dp)
         ) {
             Box(modifier = Modifier.weight(1f)) {
                 NewsFormScreen()
             }
         }
 
-        // Bottom NavBar and Submit Button
         Column(modifier = Modifier.align(Alignment.BottomCenter)) {
             Button(
                 onClick = {
@@ -120,16 +115,16 @@ fun NewsInputFormField(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(
                 modifier = Modifier
-                    .size(28.dp) // Ukuran kotak latar belakang
-                    .background(Color(0xFFFF6B00), shape = RoundedCornerShape(8.dp)) // Warna latar dan rounded corner
-                    .padding(6.dp), // Padding di dalam kotak latar untuk memberikan ruang bagi ikon
+                    .size(28.dp)
+                    .background(Color(0xFFFF6B00), shape = RoundedCornerShape(8.dp))
+                    .padding(6.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     painter = painterResource(id = icon),
                     contentDescription = label,
-                    tint = Color.White, // Warna ikon menjadi putih
-                    modifier = Modifier.size(24.dp) // Ukuran ikon
+                    tint = Color.White,
+                    modifier = Modifier.size(24.dp)
                 )
             }
             Spacer(modifier = Modifier.width(8.dp))
@@ -143,13 +138,11 @@ fun NewsInputFormField(
             )
         }
         Spacer(modifier = Modifier.height(4.dp))
-
-        // Multiline Text Field
         if (isMultiline) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(400.dp) // Tentukan tinggi untuk input multiline
+                    .height(400.dp)
                     .background(Color(0xFFF8F8F8), shape = RoundedCornerShape(8.dp))
                     .padding(12.dp)
             ) {
@@ -178,7 +171,6 @@ fun NewsInputFormField(
 
 @Composable
 fun NewsFormScreen(modifier: Modifier = Modifier) {
-    // State for the form inputs
     var newsName by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 

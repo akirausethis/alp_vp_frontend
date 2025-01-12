@@ -18,10 +18,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.alp_vp.R
 
 @Composable
-fun NewsScreen(modifier: Modifier = Modifier) {
+fun NewsScreen(navController: NavController, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -49,7 +51,10 @@ fun NewsScreen(modifier: Modifier = Modifier) {
                 .align(Alignment.TopStart)
         ) {
             IconButton(
-                onClick = {},
+                onClick = {
+                    // Navigate back using NavController
+                    navController.popBackStack()
+                },
                 modifier = Modifier.size(35.dp)
             ) {
                 Icon(
@@ -238,9 +243,7 @@ fun NewsBottomNavItem(iconRes: Int, label: String) {
 )
 @Composable
 fun NewsPreview() {
-    NewsScreen(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    )
+    // Use a mock NavController for preview purposes
+    val mockNavController = rememberNavController()
+    NewsScreen(navController = mockNavController)
 }

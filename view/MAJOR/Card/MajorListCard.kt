@@ -14,9 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.alp_vp.R
+import com.example.alp_vp.view.MAJOR.List.Major
 
 @Composable
-fun MajorListCard() {
+fun MajorListCard(major: Major) {
     Column(
         modifier = Modifier
             .padding(16.dp)
@@ -32,7 +33,7 @@ fun MajorListCard() {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Header Section", // Ubah sesuai kebutuhan
+                text = "Header Section", // Show major name
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
@@ -78,7 +79,7 @@ fun MajorListCard() {
                     color = Color.Gray
                 )
                 Text(
-                    text = "IMT",
+                    text = "${major.name}",
                     style = MaterialTheme.typography.titleMedium, // Material 3 typography
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
@@ -112,5 +113,5 @@ fun MajorListCard() {
 )
 @Composable
 fun MajorListCardPreview() {
-    MajorListCard()
+    MajorListCard(major = Major("IMT", "1"))
 }

@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.alp_vp.repositories.NetworkAuthRepository
 import com.example.alp_vp.services.AuthenticationAPIService
+import com.example.alp_vp.viewmodel.LoginRegisterViewModelFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
